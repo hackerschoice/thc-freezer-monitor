@@ -94,7 +94,8 @@ def on_connect(client, userdata, flags, rc):
         return
     conn_flag = True
     print("Connected " + str(rc))
-    client.subscribe(ts_sub, 0)
+    if ts_sub_enabled:
+        client.subscribe(ts_sub, 0)
 
 def on_disconnect(client, userdata, rc):
     global conn_flag
@@ -151,9 +152,13 @@ ts_mqtt_key = 'XXXXXXXXXXXXXXXX'
 ts_channelID = '10XXXXX'
 ts_key = 'XXXXXXXXXXXXXXXX'
 ts_topic = "channels/"+ ts_channelID +"/publish/" + ts_key
-ts_key_sub = 'XXXXXXXXXXXXXXXX'
-ts_chnlsubID = '105XXXXX'
-ts_sub   = "channels/"+ ts_chnlsubID +"/subscribe/fields/field1/" + ts_key_sub
+
+ts_sub_enabled = False
+#ts_sub_enabled = True
+if ts_sub_enabled:
+    ts_key_sub = 'XXXXXXXXXXXXXXXX'
+    ts_chnlsubID = '105XXXXX'
+    ts_sub   = "channels/"+ ts_chnlsubID +"/subscribe/fields/field1/" + ts_key_sub
 
 
 # Check if two temperature sensors exist
